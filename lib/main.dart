@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import './question.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -7,17 +9,19 @@ void main() {
 class MyApp extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return MyAppState();
+    return _MyAppState();
   }
 }
 
 // In a staful widget state is kept outside the widget so when the stateful widget rerenders it keeps state
-class MyAppState extends State<MyApp> {
-  var questionIndex = 0;
+// underscore in dart is a private class
+class _MyAppState extends State<MyApp> {
+  // underscore means private property
+  var _questionIndex = 0;
 
-  void answerQuestion() {
+  void _answerQuestion() {
     setState(() {
-      questionIndex = questionIndex + 1;
+      _questionIndex = _questionIndex + 1;
     });
   }
 
@@ -35,8 +39,8 @@ class MyAppState extends State<MyApp> {
       ),
       body: Column(
         children: <Widget>[
-          Text(questions[questionIndex]),
-          RaisedButton(child: Text('ans1'), onPressed: answerQuestion),
+          Question(questions[_questionIndex]),
+          RaisedButton(child: Text('ans1'), onPressed: _answerQuestion),
           RaisedButton(
               child: Text('ans2'), onPressed: () => print('ans2 chosen')),
           RaisedButton(
