@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import './question.dart';
+import './answer.dart';
 
 void main() {
   runApp(MyApp());
@@ -19,19 +20,23 @@ class _MyAppState extends State<MyApp> {
   // underscore means private property
   var _questionIndex = 0;
 
+  var questions = [
+    'What\'s your favorite color?',
+    'What\'s your favorite animal?',
+  ];
+
   void _answerQuestion() {
     setState(() {
-      _questionIndex = _questionIndex + 1;
+      if (_questionIndex < (questions.length - 1)) {
+        _questionIndex = _questionIndex + 1;
+      } else {
+        print('No more questions');
+      }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    var questions = [
-      'What\'s your favorite color?',
-      'What\'s your favorite animal?',
-    ];
-
     return MaterialApp(
         home: Scaffold(
       appBar: AppBar(
@@ -39,16 +44,10 @@ class _MyAppState extends State<MyApp> {
       ),
       body: Column(
         children: <Widget>[
-          Question(questions[_questionIndex]),
-          RaisedButton(child: Text('ans1'), onPressed: _answerQuestion),
-          RaisedButton(
-              child: Text('ans2'), onPressed: () => print('ans2 chosen')),
-          RaisedButton(
-              child: Text('ans3'),
-              onPressed: () {
-                //goose
-                print('ans 3 chosen');
-              }),
+          Question(questions[_questionIndex], _questionIndex + 1),
+          Answer(_answerQuestion),
+          Answer(_answerQuestion),
+          Answer(_answerQuestion),
         ],
       ),
     ));
