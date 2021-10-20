@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 
 import './question.dart';
@@ -21,8 +23,18 @@ class _MyAppState extends State<MyApp> {
   var _questionIndex = 0;
 
   var questions = [
-    'What\'s your favorite color?',
-    'What\'s your favorite animal?',
+    {
+      'question': 'What\'s your favorite color?',
+      'answers': ['White', 'green', 'pink', 'blue']
+    },
+    {
+      'question': 'What\'s your favorite animal?',
+      'answers': ['Pig', 'Marsupial', 'Ant', 'Moose']
+    },
+    {
+      'question': 'What\'s your favorite tyler?',
+      'answers': ['tyler', 'Tyler', 'tylr', 'tylerr']
+    }
   ];
 
   void _answerQuestion() {
@@ -35,6 +47,11 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  String _getQuestion(int _questionIndex) {
+    var quest = questions[_questionIndex];
+    return quest['question'];
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -44,10 +61,11 @@ class _MyAppState extends State<MyApp> {
       ),
       body: Column(
         children: <Widget>[
-          Question(questions[_questionIndex], _questionIndex + 1),
-          Answer(_answerQuestion),
-          Answer(_answerQuestion),
-          Answer(_answerQuestion),
+          Question(_getQuestion(_questionIndex), _questionIndex + 1),
+          ...(questions[_questionIndex]['answers'] as List<String>)
+              .map((answer) {
+            return Answer(_answerQuestion, answer);
+          }).toList()
         ],
       ),
     ));
