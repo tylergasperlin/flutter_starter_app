@@ -41,11 +41,7 @@ class _MyAppState extends State<MyApp> {
 
   void _answerQuestion() {
     setState(() {
-      if (_questionIndex < (questions.length - 1)) {
-        _questionIndex = _questionIndex + 1;
-      } else {
-        print('No more questions');
-      }
+      _questionIndex = _questionIndex + 1;
     });
   }
 
@@ -61,15 +57,17 @@ class _MyAppState extends State<MyApp> {
       appBar: AppBar(
         title: Text('This best app'),
       ),
-      body: Column(
-        children: <Widget>[
-          Question(_getQuestion(_questionIndex), _questionIndex + 1),
-          ...(questions[_questionIndex]['answers'] as List<String>)
-              .map((answer) {
-            return Answer(_answerQuestion, answer);
-          }).toList()
-        ],
-      ),
+      body: _questionIndex < questions.length
+          ? Column(
+              children: <Widget>[
+                Question(_getQuestion(_questionIndex), _questionIndex + 1),
+                ...(questions[_questionIndex]['answers'] as List<String>)
+                    .map((answer) {
+                  return Answer(_answerQuestion, answer);
+                }).toList()
+              ],
+            )
+          : Center(child: Text('That\'s all!')),
     ));
   }
 }
