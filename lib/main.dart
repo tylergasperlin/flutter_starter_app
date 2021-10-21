@@ -19,10 +19,9 @@ class MyApp extends StatefulWidget {
 // In a staful widget state is kept outside the widget so when the stateful widget rerenders it keeps state
 // underscore in dart is a private class
 class _MyAppState extends State<MyApp> {
-  // underscore means private property
-  var _questionIndex = 0;
-
-  var questions = [
+  // in dart const = compile time constant. You could also use final
+  // final is runtime constant
+  final questions = const [
     {
       'question': 'What\'s your favorite color?',
       'answers': ['White', 'green', 'pink', 'blue']
@@ -36,6 +35,9 @@ class _MyAppState extends State<MyApp> {
       'answers': ['tyler', 'Tyler', 'tylr', 'tylerr']
     }
   ];
+
+  // underscore means private property
+  var _questionIndex = 0;
 
   void _answerQuestion() {
     setState(() {
