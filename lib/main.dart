@@ -1,6 +1,8 @@
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_complete_guide/quiz.dart';
+import 'package:flutter_complete_guide/result.dart';
 
 import './question.dart';
 import './answer.dart';
@@ -21,7 +23,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   // in dart const = compile time constant. You could also use final
   // final is runtime constant
-  final questions = const [
+  final _questions = const [
     {
       'question': 'What\'s your favorite color?',
       'answers': ['White', 'green', 'pink', 'blue']
@@ -45,29 +47,18 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  String _getQuestion(int _questionIndex) {
-    var quest = questions[_questionIndex];
-    return quest['question'];
-  }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
         home: Scaffold(
-      appBar: AppBar(
-        title: Text('This best app'),
-      ),
-      body: _questionIndex < questions.length
-          ? Column(
-              children: <Widget>[
-                Question(_getQuestion(_questionIndex), _questionIndex + 1),
-                ...(questions[_questionIndex]['answers'] as List<String>)
-                    .map((answer) {
-                  return Answer(_answerQuestion, answer);
-                }).toList()
-              ],
-            )
-          : Center(child: Text('That\'s all!')),
-    ));
+            appBar: AppBar(
+              title: Text('This best app'),
+            ),
+            body: _questionIndex < _questions.length
+                ? Quiz(
+                    answerQuestion: _answerQuestion,
+                    questions: _questions,
+                    questionIndex: _questionIndex)
+                : Result()));
   }
 }
