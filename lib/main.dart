@@ -26,24 +26,43 @@ class _MyAppState extends State<MyApp> {
   final _questions = const [
     {
       'question': 'What\'s your favorite color?',
-      'answers': ['White', 'green', 'pink', 'blue']
+      'answers': [
+        {'text': 'White', 'score': 10},
+        {'text': 'green', 'score': 32},
+        {'text': 'pink', 'score': 121},
+        {'text': 'blue', 'score': 4}
+      ]
     },
     {
       'question': 'What\'s your favorite animal?',
-      'answers': ['Pig', 'Marsupial', 'Ant', 'Moose']
+      'answers': [
+        {'text': 'Pig', 'score': 123},
+        {'text': 'Marsupial', 'score': 5},
+        {'text': 'Ant', 'score': 12},
+        {'text': 'Moose', 'score': 6}
+      ]
     },
     {
       'question': 'What\'s your favorite tyler?',
-      'answers': ['tyler', 'Tyler', 'tylr', 'tylerr']
+      'answers': [
+        {'text': 'tyler', 'score': 555},
+        {'text': 'Tyler', 'score': 15},
+        {'text': 'tylr', 'score': 41},
+        {'text': 'tylerr', 'score': 221}
+      ]
     }
   ];
 
   // underscore means private property
   var _questionIndex = 0;
+  var _totalscore = 0;
 
-  void _answerQuestion() {
+  void _answerQuestion(int score) {
+    _totalscore = _totalscore + score;
+
     setState(() {
-      _questionIndex = _questionIndex + 1;
+      // += same as _questionIndex + 1
+      _questionIndex += score;
     });
   }
 

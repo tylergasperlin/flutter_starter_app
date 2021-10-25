@@ -15,7 +15,7 @@ class Quiz extends StatelessWidget {
 
   String _getQuestion(int _questionIndex) {
     var quest = questions[_questionIndex];
-    return quest['question'];
+    return quest['question'] as String;
   }
 
   @override
@@ -23,8 +23,10 @@ class Quiz extends StatelessWidget {
     return Column(
       children: <Widget>[
         Question(_getQuestion(questionIndex), questionIndex + 1),
-        ...(questions[questionIndex]['answers'] as List<String>).map((answer) {
-          return Answer(answerQuestion, answer);
+        ...(questions[questionIndex]['answers'] as List<Map<String, Object>>)
+            .map((answer) {
+          return Answer(
+              () => answerQuestion(answer['score']), answer['text'] as String);
         }).toList()
       ],
     );
